@@ -7,12 +7,15 @@ interface WantedItem {
   [project: string]: number | string;
 }
 export default function convertGivenToWanted(given: any): WantedItem[] {
+  if (!given) {
+    throw new Error("No data provided");
+  }
   return given.map((item: GivenItem) => {
     const date: string = Object.keys(item)[0];
     const projects: ProjectData = item[date];
     const transformedItem: WantedItem = {
       date,
-      ...projects
+      ...projects,
     };
     return transformedItem;
   });
